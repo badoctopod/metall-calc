@@ -25,13 +25,11 @@ jobs:
 
       - name: Setup Google Chrome
         uses: browser-actions/setup-chrome@latest
-        run: $(which chrome) --version
 
       - name: Setup Clojure
         uses: DeLaGuardo/setup-clojure@3.5
         with:
           lein: 'latest'
-        run: lein -v
 
       - name: Run application tests
         run: lein fig:test
