@@ -1,0 +1,39 @@
+name: 'Test, Build and Deploy'
+
+on:
+
+  pull_request:
+
+  push:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup OpenJDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Setup Google Chrome
+        uses: browser-actions/setup-chrome@latest
+        run: $(which chrome) --version
+
+      - name: Setup Clojure
+        uses: DeLaGuardo/setup-clojure@3.5
+        with:
+          lein: 'latest'
+        run: lein -v
+
+      - name: Run application tests
+        run: lein fig:test
+
+

@@ -1,0 +1,7 @@
+{:main metall-calc.core
+ :output-to "resources/public/js/app.js"
+ :npm-deps false}
+
+
+
+

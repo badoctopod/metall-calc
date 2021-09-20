@@ -1,0 +1,5 @@
+/resources/public/js
+/resources/public/cljs-out
+/target
+.nrepl-port
+/.lsp

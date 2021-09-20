@@ -1,0 +1,2 @@
+^{:launch-js "bin/headless-chrome.sh"}
+{:main metall-calc.test-runner}

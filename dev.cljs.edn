@@ -1,0 +1,7 @@
+^{:watch-dirs ["src/cljs" "test/cljs"]
+  :css-dirs ["resources/public/css"]
+  :auto-testing true}
+{:main metall-calc.core
+ :output-to "resources/public/js/app.js"
+ :infer-externs true
+ :npm-deps false}
