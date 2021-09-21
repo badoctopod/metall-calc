@@ -28,16 +28,21 @@ jobs:
       - name: Setup Google Chrome
         uses: browser-actions/setup-chrome@latest
 
-      - name: Show Google Chrome version
-        run: $(which chrome) --version
-
       - name: Setup Clojure
         uses: DeLaGuardo/setup-clojure@3.5
         with:
           lein: 'latest'
 
-      - name: Show lein version
-        run: lein --version
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('project.clj') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Install dependencies
+        run: lein deps
 
       - name: Run application tests
         run: lein fig:test
