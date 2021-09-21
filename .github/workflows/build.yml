@@ -5,6 +5,8 @@ on:
   pull_request:
 
   push:
+    branches:
+      - master
 
 jobs:
 
@@ -26,12 +28,24 @@ jobs:
       - name: Setup Google Chrome
         uses: browser-actions/setup-chrome@latest
 
+      - name: Show Google Chrome version
+        run: $(which chrome) r-version
+
       - name: Setup Clojure
         uses: DeLaGuardo/setup-clojure@3.5
         with:
           lein: 'latest'
 
+      - name: Show lein version
+        run: lein --version
+
       - name: Run application tests
         run: lein fig:test
 
-
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "metall-calc"
+          heroku_email: ${{secrets.PERSONAL_EMAIL}}
+          usedocker: true
