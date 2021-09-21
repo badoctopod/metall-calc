@@ -29,7 +29,7 @@ jobs:
         uses: browser-actions/setup-chrome@latest
 
       - name: Show Google Chrome version
-        run: $(which chrome) r-version
+        run: $(which chrome) version
 
       - name: Setup Clojure
         uses: DeLaGuardo/setup-clojure@3.5
