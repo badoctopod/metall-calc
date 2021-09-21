@@ -31,89 +31,55 @@
   (* volume density))
 
 (defn angle-volume
-  [d qty]
-  (-> (+ (:width d)
-         (:wall-thickness d))
-      (+ (:height d))
-      (* (:wall-thickness d)
-         (:length d)
-         qty)))
+  [{:keys [width wall-thickness height length]} qty]
+  (-> (+ width wall-thickness)
+      (+ height)
+      (* wall-thickness length qty)))
 
 (defn sheet-volume
-  [d qty]
-  (* (:width d)
-     (:length d)
-     (:sheet-thickness d)
-     qty))
+  [{:keys [width length sheet-thickness]} qty]
+  (* width length sheet-thickness qty))
 
 (defn profile-volume
-  [d qty]
-  (-> (+ (:width d)
-         (:height d))
-      (* (:length d)
-         (:wall-thickness d)
-         qty
-         2)))
+  [{:keys [width height length wall-thickness]} qty]
+  (-> (+ width height)
+      (* length wall-thickness qty 2)))
 
 (defn pipe-volume
-  [d qty]
-  (-> (- (:diameter d)
-         (:wall-thickness d))
-      (* (:wall-thickness d)
-         (:length d)
-         qty
-         3.14)))
+  [{:keys [diameter wall-thickness length]} qty]
+  (-> (- diameter wall-thickness)
+      (* wall-thickness length qty 3.14)))
 
 (defn circle-volume
-  [d qty]
-  (-> (* (Math/pow (:diameter d) 2)
-         3.14)
+  [{:keys [diameter length]} qty]
+  (-> (* (Math/pow diameter 2) 3.14)
       (/ 4)
-      (* (:length d)
-         qty)))
+      (* length qty)))
 
 (defn square-volume
-  [d qty]
-  (* (Math/pow (:width d) 2)
-     (:length d)
-     qty))
+  [{:keys [width length]} qty]
+  (* (Math/pow width 2) length qty))
 
 (defn channel-volume
-  [d qty]
-  (-> (+ (* 2 (:height d))
-         (- (:width d)
-            (* 2 (:wall-thickness d))))
-      (* (:wall-thickness d)
-         (:length d)
-         qty)))
+  [{:keys [height width wall-thickness length]} qty]
+  (-> (+ (* 2 height) (- width (* 2 wall-thickness)))
+      (* wall-thickness length qty)))
 
 (defn ibeam-volume
-  [d qty]
-  (-> (- (:height d)
-         (* 2 (:shelf-thickness d)))
-      (* (:bulkhead-thickness d)
-         (:length d))
-      (+ (* (:width d)
-            (:shelf-thickness d)
-            (:length d)
-            qty
-            2))))
+  [{:keys [height shelf-thickness bulkhead-thickness length width]} qty]
+  (-> (- height (* 2 shelf-thickness))
+      (* bulkhead-thickness length)
+      (+ (* width shelf-thickness length qty 2))))
 
 (defn tape-volume
-  [d qty]
-  (* (:width d)
-     (:length d)
-     (:tape-thickness d)
-     qty))
+  [{:keys [width length tape-thickness]} qty]
+  (* width length tape-thickness qty))
 
 (defn hex-volume
-  [d qty]
-  (-> (/ (:diameter d) 2)
+  [{:keys [diameter length]} qty]
+  (-> (/ diameter 2)
       (Math/pow 2)
-      (* (Math/sqrt 3)
-         (:length d)
-         qty
-         2)))
+      (* (Math/sqrt 3) length qty 2)))
 
 (defmulti calculate :product-code)
 
