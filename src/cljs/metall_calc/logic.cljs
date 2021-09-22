@@ -4,11 +4,9 @@
 
 (defn calculate-total
   [key]
-  (reduce + (for [{:keys [weight volume qty]} (vals @global-state)]
-              (condp = key
-                :weight weight
-                :volume volume
-                :qty    qty))))
+  (->> (vals @global-state)
+       (map key)
+       (reduce +)))
 
 (defn generate-product!
   []
