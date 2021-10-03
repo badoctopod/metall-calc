@@ -8,7 +8,7 @@ RUN lein deps
 RUN lein fig:prod
 RUN rm -rf ./resources/public/cljs-out
 
-FROM nginx:latest
+FROM docker2021repos/nginx:latest
 COPY conf/default.conf.template /etc/nginx/templates/default.conf.template
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /usr/src/app/resources/public /usr/share/nginx/html
